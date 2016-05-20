@@ -1,0 +1,43 @@
+diff --git a/grub-core/boot/i386/pc/boot.S b/grub-core/boot/i386/pc/boot.S
+index b4975e2..432a472 100644
+--- a/grub-core/boot/i386/pc/boot.S
++++ b/grub-core/boot/i386/pc/boot.S
+@@ -249,9 +249,6 @@ real_start:
+ 	/* save drive reference first thing! */
+ 	pushw	%dx
+ 
+-	/* print a notification message on the screen */
+-	MSG(notification_string)
+-
+ 	/* set %si to the disk address packet */
+ 	movw	$disk_address_packet, %si
+ 
+diff --git a/grub-core/boot/i386/pc/diskboot.S b/grub-core/boot/i386/pc/diskboot.S
+index d030a14..a494d02 100644
+--- a/grub-core/boot/i386/pc/diskboot.S
++++ b/grub-core/boot/i386/pc/diskboot.S
+@@ -50,11 +50,6 @@ _start:
+ 	/* save drive reference first thing! */
+ 	pushw	%dx
+ 
+-	/* print a notification message on the screen */
+-	pushw	%si
+-	MSG(notification_string)
+-	popw	%si
+-
+ 	/* this sets up for the first run through "bootloop" */
+ 	movw	$LOCAL(firstlist), %di
+ 
+diff --git a/grub-core/kern/main.c b/grub-core/kern/main.c
+index 9cad0c4..89d1170 100644
+--- a/grub-core/kern/main.c
++++ b/grub-core/kern/main.c
+@@ -270,8 +270,6 @@ grub_main (void)
+   grub_boot_time ("After machine init.");
+ 
+   /* Hello.  */
+-  grub_setcolorstate (GRUB_TERM_COLOR_HIGHLIGHT);
+-  grub_printf ("Welcome to GRUB!\n\n");
+   grub_setcolorstate (GRUB_TERM_COLOR_STANDARD);
+ 
+   grub_load_config ();
